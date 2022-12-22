@@ -4,7 +4,7 @@
 int main() {
 	int i, num, maior, menor;
 	
-	printf("Digite 20 numeros inteiros: ");
+	printf("Digite 20 numeros inteiros:\n");
 	
 	scanf("%d", &maior);
 	scanf("%d", &menor);
@@ -14,14 +14,17 @@ int main() {
 		maior = menor;
 		menor = num;
     }
-	for (i=1; i<=19; i++) {
-		scanf("%d", num);
+    
+	for (i=0; i<18; i++) {
+		scanf("%d", &num);
 		
 		if (num>maior) {
 			maior = num;
 		}
-		else if (num<menor) {
-			menor = num;
+		else{
+            if (num < menor){
+                menor = num;
+            }
 		}
 	}
 	
