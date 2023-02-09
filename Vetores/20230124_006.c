@@ -6,7 +6,7 @@ void selectionSort (int vetor[], int n) {
 	
 	for (i=0; i<n; i ++) {
 		menor = i;
-		for (j=i+1; j<n; i++) {
+		for (j=i+1; j<n; j++) {
 			if (vetor[j]<vetor[menor]) {
 				menor=j;
 			}
