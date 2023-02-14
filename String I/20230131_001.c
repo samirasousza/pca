@@ -2,14 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int palavraInvertida() {
-	char palavra[200];
-	int i, tam;
-	
-	printf("Escreva uma string: ");
-	scanf("%s", &palavra);
-	
-	tam = strlen(palavra);
+int palavraInvertida(char palavra[], int tam) {
+	int i;
 	
 	printf("\nA string invertida: ");
 	
@@ -22,15 +16,8 @@ int palavraInvertida() {
 }
 
 
-int semVogais(){
-	char palavra[200];
-	int i, tam;
-	
-	printf("\n\nEscreva uma string: ");
-	scanf("%s", &palavra);
-	
-	tam = strlen(palavra);
-	
+int semVogais(char palavra[], int tam){
+	int i;
 	char vogais[tam];
 	char consoantes[tam];
 	int numVogais=0 , numConsoantes=0;
@@ -60,43 +47,28 @@ int semVogais(){
 }
 
 
-int maiusculo () {
-	char palavra[200];
-	int i, tam;
-	
-	printf("\n\nEscreva uma string em minusculo: ");
-	scanf("%s", &palavra);
-	
-	tam = strlen(palavra);
-	
+int maiusculo (char palavra[], int tam) {
+	int i;
+	char nova_palavra[200];
+
 	printf("\nA string em capslock: ");
 	
 	for (i=0; i<=tam; i++) {
 		if ((palavra[i] >= 'a') && (palavra[i] <= 'z')) {
-			palavra[i] = palavra[i] - 32;
+			nova_palavra[i] = palavra[i] - 32;
 		}
 	}
 	
 	for (i=0; i<=tam; i++) {
-		printf("%c", palavra[i]);
+		printf("%c", nova_palavra[i]);
 	}
 	
 		return 0;
 }
 
 
-int caractRepetidos () {
-	char palavra [200];
-	int i, tam, cont=0;
-	char caract;
-	
-	printf("\n\nDigite uma string: ");
-	scanf("%s", &palavra);
-	
-	tam = strlen(palavra);
-	
-	printf("\nDigite um caractere: ");
-	scanf("%c", &caract);
+int caractRepetidos (char palavra[], int tam, char caract) {
+	int i, cont=0;
 	
 	for (i=0; i<=tam; i++) {
 		if (palavra[i] == caract) {
@@ -110,11 +82,45 @@ int caractRepetidos () {
 }
 
 
+void apagarCaract (char palavra[], int tam, char caract) {
+	int i, cont=0;
+	char nova_palavra[tam];
+	
+	printf("\nA string sem o caractere %c: ", caract);
+	
+	while (palavra[i] != '\0') {
+		if (palavra[i] != caract) {
+			nova_palavra[cont] = palavra[i];
+			cont++;
+		}
+		i++; 
+	}
+	
+	for (i=0; i<cont; i++) {
+		printf("%c", nova_palavra[i]);
+	}
+} 
+
+
+
 int main () {
-	palavraInvertida();
-	semVogais();
-	maiusculo();
-	caractRepetidos();
+	char palavra[200];
+	char caract;
+	int tam;
+	
+	printf("Digite uma string: ");
+	scanf("%s", palavra);
+	
+	tam = strlen(palavra);
+	
+	printf("\nDigite um caractere: ");
+	scanf(" %c", &caract);
+	
+	palavraInvertida(palavra, tam);
+	semVogais(palavra, tam);
+	maiusculo(palavra, tam);
+	caractRepetidos(palavra, tam, caract);
+	apagarCaract(palavra, tam, caract);
 	
 	return 0;
 }
