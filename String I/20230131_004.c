@@ -6,7 +6,6 @@
 
 #define max 20
 
-
 int main(){
 	setlocale(LC_ALL, "");
 	int i, j, tam, count = 0;
@@ -18,10 +17,13 @@ int main(){
 	printf("Digite uma string (Máx 20): ");
 	scanf("%s", word);
 	fflush(stdin);
+	
 	printf("Digite um caractere: ");
 	chr = getch();
+	
 	printf("\nDigite um segundo caractere: ");
 	chr2 = getch();
+	
 	for (i = 0; i < max; i++){
 		if (word[i] == '\0'){
 			tam = i;
