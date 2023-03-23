@@ -1,7 +1,59 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
-Faça um programa que calcula a média e o desvio padrão das notas de uma turma;
-- O programa deve solicitar no início a quantidade de alunos na turma e alocar dinamicamente um vetor de float onde as notas dos alunos digitadas devem ser armazenadas;
-- Você deve criar uma função “mediaDesvio” para calcular a média e o desvio padrão e retornar estes valores através de parâmetros passados por referência (ponteiros). A função recebe como parâmetro o ponteiro para o vetor, a quantidade de elementos no vetor, e dois ponteiros: media e desvio onde deve guardar os resultados;
+void mediaDesvio(float *notas, int qnt, float *media, float *desvio){
+	float soma = 0.0;
+	float soma_desvio = 0;
+	float *pnot;
+	
+	for(pnot = notas; pnot <= notas+(qnt-1); pnot++){
+		soma += *pnot;
+	}
+	
+	*media = soma/qnt;
+	
+	for(pnot = notas; pnot <= notas+(qnt-1); pnot++){
+		soma_desvio += pow((*pnot - *media), 2);
+	}
+	
+	*desvio = sqrt(soma_desvio/qnt);
+}
 
-Referencia: https://www.todamateria.com.br/desvio-padrao/#:~:text=O%20desvio%20padr%C3%A3o%20%C3%A9%20uma,mais%20homog%C3%AAneo%20s%C3%A3o%20os%20dados.
+int main(){
+	int qnt, i;
+	
+	printf("Qual a quantidade de alunos: ");
+	scanf("%d", &qnt);
+	
+	if(qnt<=0){
+		do{
+			printf("\nQuantidade invalida, digite novamente: ");
+			scanf("%d", &qnt);
+		}while(qnt<=0);
+	}
+	
+	float *notas;
+	notas = (float*) malloc (qnt * sizeof(float));
+	if (notas == NULL){
+		printf("\nERROR. não foi possivel alocar memória.");
+		return -1;
+	}
+	else{
+		printf("Agora digite as notas dos alunos:\n");
+		
+		for(i=0; i<qnt; i++){
+			scanf("%f", notas+i);
+		}
+	}
+	
+	float media, desvio;
+	
+	mediaDesvio(notas, qnt, &media, &desvio);
+	
+	printf("Media da turma: %.2f\n", media);
+    printf("Desvio padrao: %f\n", desvio);
+    free(notas);
+	
+	return 0;
+}
