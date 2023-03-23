@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int** alocaLeMatrizInt(int m, int n){
+double** alocaLeMatrizReal(int m, int n){
 
-    int **mat = (int **) malloc(m * sizeof(int*));
+    double **mat = (double **) malloc(m * sizeof(double*));
 	
 	int i, j;
 	
     for(i = 0; i < m; i++){
-        *(mat+i) = (int *) malloc(n * sizeof(int));
+        *(mat+i) = (double *) malloc(n * sizeof(double));
     }
 
     for(i = 0; i < m; i++){
         for(j = 0; j < n; j++){
-            scanf("%d", (*(mat+i))+j);
+            scanf("%lf", (*(mat+i))+j);
         }
     }
 
@@ -21,58 +21,60 @@ int** alocaLeMatrizInt(int m, int n){
 }
 
 int main(){
-    int m, n;
-    printf("Digite a quantidade de linhas(m):\n");
-    scanf("%d", &m);
-    printf("Digite a quantidade de colunas(n):\n");
-    scanf("%d", &n);
+    int m1, n1, m2, n2;
+    printf("Vamos somar 2 matrizes compostas por números reais.\n");
+    printf("Primeiro insira as informações da matriz 1\n\n");
+    printf("Digite a quantidade de linhas da matriz 1(m1):\n");
+    scanf("%d", &m1);
+    printf("Digite a quantidade de colunas da matriz 1(n1):\n");
+    scanf("%d", &n1);
 
-    printf("Agora digite os elementos da matriz:\n");
-    int **mat = alocaLeMatrizInt(m, n);
-    int cont = 0;
-
+    printf("Agora digite os elementos da matriz 1:\n");
+    double **mat1 = alocaLeMatrizReal(m1, n1);
     printf("\n");
-    printf("Imprimindo com aritimetica de ponteiros:\n");
-    
-    int **plinhas;
-    
-    for(plinhas = mat; plinhas <= mat+m-1; plinhas++){
-    	
-    	int *pcolunas;
-    	
-        for(pcolunas = *plinhas; pcolunas <= (*plinhas)+n-1; pcolunas++){
-            if(cont == n-1){
-                printf("%d\n", *pcolunas);
-            }
-            else{
-                printf("%d ", *pcolunas);
-                cont++;
-            }
-        }
-        cont = 0;
+
+    printf("Agora insira as informações da segunda matriz:\n\n");
+    printf("Digite a quantidade de linhas da matriz 2(m2):\n");
+    scanf("%d", &m2);
+    while(m2 != m1){
+        printf("O número de linhas precisa ser igual ao da matriz anterior.\n");
+        printf("Insira novamente:\n");
+        scanf("%d", &m2);
     }
+
+    printf("Digite a quantidade de colunas da matriz 2(n2):\n");
+    scanf("%d", &n2);
+    while(n2 != n1){
+        printf("O número de colunas precisa ser igual ao da matriz anterior.\n");
+        printf("Insira novamente:\n");
+        scanf("%d", &n2);
+    }
+
+    printf("Agora digite os elementos da matriz 2:\n");
+    double **mat2 = alocaLeMatrizReal(m2, n2);
     printf("\n");
 
-    printf("Imprimindo com indexes:\n");
-    
-    int i, j;
-    
-    for(i = 0; i < m; i++){
-        for(j = 0; j < n; j++){
-            if(j == n-1){
-                printf("%d\n", mat[i][j]);
+	int i, j;
+
+    printf("Mostrando a soma das 2 matrizes:\n");
+    for (i = 0; i < m1; i++){
+        for (j = 0; j < n1; j++){
+            if(j == n1-1){
+                printf("%lf\n", mat1[i][j]+mat2[i][j]);
             }
             else{
-                printf("%d ", mat[i][j]);
+                printf("%lf ", mat1[i][j]+mat2[i][j]);
             }
         }
     }
 
     /*liberando memória:*/
-    for (i = 0; i < m; i++){
-        free(*(mat+i));
+    for (i = 0; i < m1; i++){
+        free(mat1[i]);
+        free(*(mat2+i));
     }
-    free(mat);
+    free(mat1);
+    free(mat2);
 
     return 0;
 }
